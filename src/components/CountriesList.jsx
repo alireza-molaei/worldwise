@@ -3,7 +3,9 @@ import styles from "./CountriesList.module.css";
 import Spinner from "./Spinner";
 import CountryItem from "./CountryItem";
 import Message from "./Message";
-function CountriesList({ isLoading, cities }) {
+import { useCities } from "../contexts/CitiesContext";
+function CountriesList() {
+  const { isLoading, cities } = useCities();
   if (isLoading) return <Spinner />;
   if (!cities.length) return <Message message={"add your first city"} />;
   const countries = cities.reduce((acc, curr) => {
