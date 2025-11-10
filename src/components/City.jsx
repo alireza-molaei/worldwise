@@ -1,5 +1,8 @@
 import { useParams } from "react-router-dom";
 import styles from "./City.module.css";
+import { useEffect } from "react";
+import { useCities } from "../contexts/CitiesContext";
+import BackButton from "./BackButton";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -10,8 +13,12 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 function City() {
-  // const {id} = useParams();
-  // // TEMP DATA
+  const { id } = useParams();
+  const { getCity, currentCity } = useCities();
+  // TEMP DATA
+  useEffect(() => {
+    getCity(id);
+  }, [id]);
   // const currentCity = {
   //   cityName: "Lisbon",
   //   emoji: "🇵🇹",
@@ -19,12 +26,12 @@ function City() {
   //   notes: "My favorite city so far!",
   // };
 
-  // const { cityName, emoji, date, notes } = currentCity;
+  const { cityName, emoji, date, notes } = currentCity;
 
   return (
-    // <div className={styles.city}>
-    <h1> city</h1>
-    /* <div className={styles.row}>
+    <div className={styles.city}>
+
+      <div className={styles.row}>
         <h6>City name</h6>
         <h3>
           <span>{emoji}</span> {cityName}
@@ -55,9 +62,9 @@ function City() {
       </div>
 
       <div>
-        <ButtonBack />
+        <BackButton />
       </div>
-    </div> */
+    </div>
   );
 }
 
